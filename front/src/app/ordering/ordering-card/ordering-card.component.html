@@ -1,0 +1,22 @@
+<div class="shadow rounded border p-2 row mb-3 fs-5 align-items-center text-center" data-aos="fade-up">
+	<div *ngIf="getRole() === 'MANAGER'" class="col"><p class="m-0">{{ 'Заказчик: ' + ordering.ownerName }}</p></div>
+
+	<div class="col">
+		<a (click)="excursionPage(ordering.excursionId)" type="button">
+			<p class="m-0">{{ 'Экскурсия: ' + ordering.excursionName }}</p>
+		</a>
+	</div>
+	<div class="col"><p class="m-0">{{ 'Дата: ' + ordering.date }}</p></div>
+	<div class="col"><p class="m-0">{{ 'Цена: ' + ordering.price }}</p></div>
+	<div class="col"><p class="m-0">{{ 'Статус: ' + ordering.statusName }}</p></div>
+
+	<div *ngIf="ordering.status === 'WAITING' && getRole() === 'MANAGER'" class="col-auto">
+		<a (click)="done()" class="btn btn-primary" role="button">Подтвердить</a>
+	</div>
+
+	<div *ngIf="ordering.status === 'WAITING' && getRole() === 'MANAGER'" class="col-auto">
+		<a (click)="reject()" class="btn btn-primary" role="button">Отказать</a>
+	</div>
+
+</div>
+
