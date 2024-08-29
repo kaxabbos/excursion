@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-excursion-save',
@@ -14,7 +15,8 @@ import {GlobalService} from "../../global.service";
 		ReactiveFormsModule,
 		FormsModule,
 		NgForOf,
-		NgIf
+		NgIf,
+		NavigateDirective
 	],
 	templateUrl: './excursion-save.component.html',
 })
@@ -52,14 +54,14 @@ export class ExcursionSaveComponent implements OnInit {
 		this.categoryService.getCategories();
 	}
 
-	addExcursion() {
+	add() {
 		this.excursionService.save(this.excursionFormGroup.value).subscribe({
 			next: ((res: any) => {
 				this.excursionService.updateImg(this.file, res.data.id).subscribe({
 					next: (() => {
 						this.router.navigate(
 							['/excursion'],
-							{queryParams: {excursionId: res.data.id}}
+							{queryParams: {id: res.data.id}}
 						);
 					}),
 					error: ((e: any) => {

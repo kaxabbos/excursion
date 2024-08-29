@@ -11,7 +11,7 @@
 	<div class="row mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
-			<a (click)="getExcursionPage()" class="btn btn-secondary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'excursion'" [queryParams]="{id: id}" class="btn btn-secondary w-100">Назад</a>
 		</div>
 		<div class="col"></div>
 	</div>

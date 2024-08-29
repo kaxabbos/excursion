@@ -2,15 +2,15 @@
 
 	<h1 class="text-center mb-5" data-aos="zoom-in">Экскурсии</h1>
 
-	<div *ngIf="getRole() === 'MANAGER'" class="row mb-5" data-aos="zoom-in">
+	<div *ngIf="role === 'MANAGER'" class="row mb-5" data-aos="zoom-in">
 		<div class="col"></div>
 		<div class="col">
-			<a (click)="router.navigate(['/excursionAdd'])" class="btn btn-primary w-100">Добавить</a>
+			<a appNavigate [navigateURL]="'excursionAdd'" class="btn btn-primary w-100">Добавить</a>
 		</div>
 		<div class="col"></div>
 	</div>
 
-	<div class="mb-5 row">
+	<div class="mb-5 row" data-aos="zoom-in">
 		<div class="col">
 			<input [(ngModel)]="name" class="form-control" name="name" placeholder="Наименование" type="text">
 		</div>
@@ -35,7 +35,7 @@
 	</div>
 
 	<div class="row justify-content-center">
-		@for (i of excursionsSorted(); track i.id) {
+		@for (i of sorted; track i.id) {
 			<div class="col-4">
 				<app-excursion-card [excursion]="i"></app-excursion-card>
 			</div>

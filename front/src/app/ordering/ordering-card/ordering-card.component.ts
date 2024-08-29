@@ -24,7 +24,7 @@ export class OrderingCardComponent {
 	) {
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
 	}
 
@@ -36,7 +36,7 @@ export class OrderingCardComponent {
 		this.orderingService.reject(this.ordering.id);
 	}
 
-	excursionPage(excursionId: number) {
-		this.router.navigate(['/excursion'], {queryParams: {excursionId: excursionId}});
+	excursionPage(id: number) {
+		this.router.navigate(['/excursion'], {queryParams: {id: id}});
 	}
 }

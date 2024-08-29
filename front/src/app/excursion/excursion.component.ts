@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {CategoryService} from "../category/category.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {GlobalService} from "../global.service";
+import {NavigateDirective} from "../navigate.directive";
 
 @Component({
 	selector: 'app-excursion',
@@ -15,7 +16,8 @@ import {GlobalService} from "../global.service";
 		ExcursionCardComponent,
 		NgIf,
 		ReactiveFormsModule,
-		FormsModule
+		FormsModule,
+		NavigateDirective
 	],
 	templateUrl: './excursion.component.html',
 })
@@ -35,7 +37,7 @@ export class ExcursionComponent implements OnInit {
 	) {
 	}
 
-	excursionsSorted() {
+	get sorted() {
 		let res = this.excursions;
 
 		res = res.filter(value => value.name.includes(this.name));
@@ -69,7 +71,7 @@ export class ExcursionComponent implements OnInit {
 		this.categoryService.getCategories();
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
 	}
 

@@ -38,7 +38,7 @@ export class OrderingComponent implements OnInit {
 	) {
 	}
 
-	getSortedOrderings() {
+	get sorted() {
 		let res = this.orderings;
 
 		res = res.filter(value => value.date.includes(this.filterDate));
@@ -54,7 +54,7 @@ export class OrderingComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.getRole() !== 'USER' && this.getRole() !== 'MANAGER') this.router.navigate(['/login']);
+			if (this.role !== 'USER' && this.role !== 'MANAGER') this.router.navigate(['/login']);
 		})
 
 		this.orderingService.orderingSubject.subscribe(value => {
@@ -70,7 +70,7 @@ export class OrderingComponent implements OnInit {
 
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
 	}
 

@@ -6,13 +6,15 @@ import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {GlobalService} from "../../global.service";
 import {OrderingService} from "../../ordering/ordering.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-excursion-page',
 	standalone: true,
 	imports: [
 		NgIf,
-		FormsModule
+		FormsModule,
+		NavigateDirective
 	],
 	templateUrl: './excursion-page.component.html',
 })
@@ -34,11 +36,11 @@ export class ExcursionPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.getRole() === 'NOT') this.router.navigate(['/login']);
+			if (this.role === 'NOT') this.router.navigate(['/login']);
 		})
 
 		this.activatedRoute.queryParams.subscribe(params => {
-			this.id = params['excursionId'];
+			this.id = params['id'];
 		});
 
 		this.excursionService.findById(this.id).subscribe({
@@ -63,16 +65,8 @@ export class ExcursionPageComponent implements OnInit {
 		});
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
-	}
-
-
-	updatePage() {
-		this.router.navigate(
-			['/excursionUpdate'],
-			{queryParams: {excursionId: this.id}}
-		);
 	}
 
 	deleteExcursion() {

@@ -37,7 +37,7 @@ export class OrderingService {
 		});
 	}
 
-	save(date: string, excursionId: number) {
+	save(date: string, id: number) {
 		return this.http.post(
 			this.global.backendURL + '/orderings',
 			"",
@@ -45,7 +45,7 @@ export class OrderingService {
 				headers: this.global.headersToken,
 				params: new HttpParams().appendAll({
 					date: date,
-					excursionId: excursionId,
+					id: id,
 				})
 			}
 		);

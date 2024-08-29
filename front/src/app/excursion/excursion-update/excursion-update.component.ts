@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-excursion-update',
@@ -14,7 +15,8 @@ import {GlobalService} from "../../global.service";
 		ReactiveFormsModule,
 		FormsModule,
 		NgForOf,
-		NgIf
+		NgIf,
+		NavigateDirective
 	],
 	templateUrl: './excursion-update.component.html',
 })
@@ -26,11 +28,11 @@ export class ExcursionUpdateComponent implements OnInit {
 		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 		categoryId: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	});
-	file: any = null;
 
+	file: any = null;
 	categories: any[] = [];
-	message: any;
-	id: any;
+	message: string = '';
+	id: number = 0;
 
 	constructor(
 		private router: Router,
@@ -48,7 +50,7 @@ export class ExcursionUpdateComponent implements OnInit {
 		})
 
 		this.activatedRoute.queryParams.subscribe(value => {
-			this.id = value['excursionId'];
+			this.id = value['id'];
 		})
 
 		this.excursionService.findById(this.id).subscribe({
@@ -87,7 +89,7 @@ export class ExcursionUpdateComponent implements OnInit {
 						next: (() => {
 							this.router.navigate(
 								['/excursion'],
-								{queryParams: {excursionId: res.data.id}}
+								{queryParams: {id: res.data.id}}
 							);
 						}),
 						error: ((e: any) => {
@@ -98,7 +100,7 @@ export class ExcursionUpdateComponent implements OnInit {
 				} else {
 					this.router.navigate(
 						['/excursion'],
-						{queryParams: {excursionId: res.data.id}}
+						{queryParams: {id: res.data.id}}
 					);
 				}
 			}),
@@ -111,12 +113,5 @@ export class ExcursionUpdateComponent implements OnInit {
 
 	updateImg(event: any) {
 		this.file = event.target.files[0];
-	}
-
-	getExcursionPage() {
-		this.router.navigate(
-			['/excursion'],
-			{queryParams: {excursionId: this.id}}
-		);
 	}
 }

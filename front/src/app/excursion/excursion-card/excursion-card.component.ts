@@ -1,25 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {Router} from "@angular/router";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-excursion-card',
 	standalone: true,
-	imports: [],
+	imports: [
+		NavigateDirective
+	],
 	templateUrl: './excursion-card.component.html',
 })
 
 export class ExcursionCardComponent {
 	@Input() excursion: any;
-
-	constructor(
-		private router: Router,
-	) {
-	}
-
-	excursionPage() {
-		this.router.navigate(
-			['/excursion'],
-			{queryParams: {excursionId: this.excursion.id}}
-		);
-	}
 }

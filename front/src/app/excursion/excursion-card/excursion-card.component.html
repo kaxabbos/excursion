@@ -8,6 +8,6 @@
 		<p class="fs-4 m-0">{{ 'Цена: ' + excursion.price }}</p>
 	</div>
 	<div class="card-footer">
-		<a (click)="excursionPage()" class="btn btn-primary w-100">Подробнее</a>
+		<a appNavigate [navigateURL]="'excursion'" [queryParams]="{id:excursion.id}" class="btn btn-primary w-100">Подробнее</a>
 	</div>
 </div>

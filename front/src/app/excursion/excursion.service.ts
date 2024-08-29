@@ -70,11 +70,11 @@ export class ExcursionService {
 		);
 	}
 
-	updateImg(file: File, excursionId: any) {
+	updateImg(file: File, id: any) {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.global.backendURL + `/excursions/${excursionId}/img`,
+			this.global.backendURL + `/excursions/${id}/img`,
 			formData,
 			{
 				headers: this.global.headersMultipartToken,
@@ -82,9 +82,9 @@ export class ExcursionService {
 		);
 	}
 
-	delete(excursionId: any) {
+	delete(id: any) {
 		return this.http.delete(
-			this.global.backendURL + `/excursions/${excursionId}`,
+			this.global.backendURL + `/excursions/${id}`,
 			{headers: this.global.headersToken}
 		);
 	}

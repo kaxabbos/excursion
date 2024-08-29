@@ -21,11 +21,13 @@ import {GlobalService} from "../global.service";
 	templateUrl: './category.component.html',
 })
 export class CategoryComponent implements OnInit {
+
 	categories: any[] = [];
 
 	category = new FormGroup({
 		name: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	})
+
 	message = "";
 
 	constructor(
@@ -36,7 +38,7 @@ export class CategoryComponent implements OnInit {
 	) {
 	}
 
-	getSortedCategories() {
+	get sorted() {
 		return this.categories.sort((a: any, b: any) => {
 			if (a.id > b.id) return 1;
 			if (a.id < b.id) return -1;
@@ -56,7 +58,7 @@ export class CategoryComponent implements OnInit {
 		this.categoryService.getCategories();
 	}
 
-	addCategory() {
+	add() {
 		this.categoryService.addCategory(this.category.value);
 	}
 }
