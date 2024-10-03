@@ -23,10 +23,7 @@ export class CategoryService {
 			this.global.backendURL + '/categories',
 		).subscribe({
 			next: ((res: any) => {
-				this.categorySubject.next({
-					...this.categorySubject.value,
-					categories: res.data,
-				})
+				this.categorySubject.next()
 			}),
 			error: ((error: any) => {
 				console.log("error", error);
@@ -42,10 +39,7 @@ export class CategoryService {
 			{headers: this.global.headersJsonToken},
 		).subscribe({
 			next: ((res: any) => {
-				this.categorySubject.next({
-					...this.categorySubject.value,
-					categories: [...this.categorySubject.value.categories, res.data],
-				})
+				this.categorySubject.next()
 			}),
 			error: ((error: any) => {
 				console.log("error", error);
@@ -62,10 +56,7 @@ export class CategoryService {
 			next: ((res: any) => {
 				const current = this.categorySubject.value;
 				const categories = current.categories.map((item: any) => item.id === category.id ? res.data : item);
-				this.categorySubject.next({
-					...current,
-					categories: categories
-				})
+				this.categorySubject.next()
 			}),
 			error: ((error: any) => {
 				console.log("error", error);
@@ -91,10 +82,7 @@ export class CategoryService {
 			next: ((res: any) => {
 				const current = this.categorySubject.value;
 				const categories = current.categories.filter((i: any) => i.id !== id);
-				this.categorySubject.next({
-					...current,
-					categories: categories
-				})
+				this.categorySubject.next()
 			}),
 			error: ((error: any) => {
 				console.log("error", error);

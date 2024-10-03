@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {GlobalService} from "../global.service";
+import {AlertService} from "../alert/alert.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
 		private http: HttpClient,
 		private router: Router,
 		private global: GlobalService,
+		private alert: AlertService,
 	) {
 	}
 
@@ -20,19 +22,34 @@ export class AuthService {
 		return this.http.post<any>(
 			this.global.backendURL + '/users/login',
 			"",
-			{
-				headers: {
-					'Authorization': 'Basic ' + btoa(user.username + ":" + user.password)
-				}
-			}
-		)
+			{headers: {'Authorization': 'Basic ' + btoa(user.username + ":" + user.password)}}
+		).subscribe({
+			next: ((res) => {
+				this.global.set(res.data.user.id, res.data.user.role, res.data.token);
+				this.router.navigate(['/']);
+			}),
+			error: ((e: any) => {
+				console.log("error", e);
+				if (e.status === 0) this.alert.showAlertMessage("Сервер не работает");
+				this.alert.showAlertMessage(e.error.message);
+			})
+		})
 	}
 
 	reg(user: any) {
 		return this.http.post<any>(
 			this.global.backendURL + '/users',
 			user
-		)
+		).subscribe({
+			next: (() => {
+				this.login(user);
+			}),
+			error: ((e: any) => {
+				console.log("error", e);
+				if (e.status === 0) this.alert.showAlertMessage("Сервер не работает");
+				this.alert.showAlertMessage(e.error.message);
+			})
+		});
 	}
 
 	getUserProfile() {

@@ -7,6 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {GlobalService} from "../../global.service";
 import {OrderingService} from "../../ordering/ordering.service";
 import {NavigateDirective} from "../../navigate.directive";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
 	selector: 'app-excursion-page',
@@ -21,7 +22,6 @@ import {NavigateDirective} from "../../navigate.directive";
 export class ExcursionPageComponent implements OnInit {
 	id: any;
 	excursion: any;
-	message: any;
 	date: string = '';
 
 	constructor(
@@ -31,6 +31,7 @@ export class ExcursionPageComponent implements OnInit {
 		private excursionService: ExcursionService,
 		private orderingService: OrderingService,
 		private global: GlobalService,
+		private alert: AlertService,
 	) {
 	}
 
@@ -76,19 +77,19 @@ export class ExcursionPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
 
 	ordering() {
 		this.orderingService.save(this.date, this.id).subscribe({
-			next: ((res: any) => {
-				this.message = 'Заявка успешно оформлена';
+			next: (() => {
+				this.alert.showAlertMessage('Заявка успешно оформлена');
 			}),
-			error: ((e) => {
+			error: ((e: any) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}

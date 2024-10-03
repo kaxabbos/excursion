@@ -25,9 +25,7 @@ export class EnumService {
 			this.global.backendURL + '/enums/roles',
 		).subscribe({
 			next: ((res: any) => {
-				this.enumSubject.next({
-					roles: res.data,
-				});
+				this.enumSubject.next();
 			}),
 			error: ((error: any) => {
 				console.log("error", error);
@@ -40,9 +38,7 @@ export class EnumService {
 			this.global.backendURL + '/enums/orderingStatuses',
 		).subscribe({
 			next: ((res: any) => {
-				this.enumSubject.next({
-					orderingStatuses: res.data,
-				});
+				this.enumSubject.next();
 			}),
 			error: ((error: any) => {
 				console.log("error", error);

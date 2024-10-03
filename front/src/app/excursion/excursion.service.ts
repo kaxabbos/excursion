@@ -24,10 +24,7 @@ export class ExcursionService {
 			this.global.backendURL + '/excursions',
 		).subscribe({
 			next: ((res: any) => {
-				this.excursionSubject.next({
-					...this.excursionSubject.value,
-					excursions: res.data,
-				})
+				this.excursionSubject.next()
 			}),
 			error: (e: any) => {
 				console.log("error", e);

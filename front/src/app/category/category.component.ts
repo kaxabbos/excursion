@@ -28,8 +28,6 @@ export class CategoryComponent implements OnInit {
 		name: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	})
 
-	message = "";
-
 	constructor(
 		private authService: AuthService,
 		private categoryService: CategoryService,

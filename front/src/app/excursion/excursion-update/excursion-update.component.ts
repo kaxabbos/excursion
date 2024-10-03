@@ -7,6 +7,7 @@ import {CategoryService} from "../../category/category.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
 import {NavigateDirective} from "../../navigate.directive";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
 	selector: 'app-excursion-update',
@@ -31,7 +32,6 @@ export class ExcursionUpdateComponent implements OnInit {
 
 	file: any = null;
 	categories: any[] = [];
-	message: string = '';
 	id: number = 0;
 
 	constructor(
@@ -40,7 +40,8 @@ export class ExcursionUpdateComponent implements OnInit {
 		private authService: AuthService,
 		private excursionService: ExcursionService,
 		private categoryService: CategoryService,
-		private global: GlobalService
+		private global: GlobalService,
+		private alert: AlertService,
 	) {
 	}
 
@@ -94,7 +95,7 @@ export class ExcursionUpdateComponent implements OnInit {
 						}),
 						error: ((e: any) => {
 							console.log("error", e);
-							this.message = e.error.message;
+							this.alert.showAlertMessage(e.error.message);
 						})
 					})
 				} else {
@@ -106,7 +107,7 @@ export class ExcursionUpdateComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}

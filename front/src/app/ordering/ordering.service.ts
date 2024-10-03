@@ -26,10 +26,7 @@ export class OrderingService {
 			{headers: this.global.headersToken}
 		).subscribe({
 			next: ((res: any) => {
-				this.orderingSubject.next({
-					...this.orderingSubject.value,
-					orderings: res.data,
-				})
+				this.orderingSubject.next()
 			}),
 			error: ((e) => {
 				console.log("error", e);
@@ -58,10 +55,7 @@ export class OrderingService {
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id == id ? res.data : i);
-				this.orderingSubject.next({
-					...this.orderingSubject.value,
-					orderings: orderings
-				})
+				this.orderingSubject.next()
 			}),
 			error: ((e) => {
 				console.log("error", e);
@@ -76,10 +70,7 @@ export class OrderingService {
 		).subscribe({
 			next: ((res: any) => {
 				let orderings = this.orderingSubject.value.orderings.map((i: any) => i.id == id ? res.data : i);
-				this.orderingSubject.next({
-					...this.orderingSubject,
-					orderings: orderings
-				})
+				this.orderingSubject.next()
 			}),
 			error: ((e) => {
 				console.log("error", e);
