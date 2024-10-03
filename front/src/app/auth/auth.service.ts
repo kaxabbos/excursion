@@ -31,7 +31,7 @@ export class AuthService {
 			error: ((e: any) => {
 				console.log("error", e);
 				if (e.status === 0) this.alert.showAlertMessage("Сервер не работает");
-				this.alert.showAlertMessage(e.error.message);
+				else this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -47,7 +47,7 @@ export class AuthService {
 			error: ((e: any) => {
 				console.log("error", e);
 				if (e.status === 0) this.alert.showAlertMessage("Сервер не работает");
-				this.alert.showAlertMessage(e.error.message);
+				else this.alert.showAlertMessage(e.error.message);
 			})
 		});
 	}
